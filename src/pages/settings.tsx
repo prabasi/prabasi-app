@@ -9,7 +9,7 @@ export default function Settings() {
   function onExportReset() {
     exportCSVFile(store.scans as any, { name: "Name", time: "Time" }, "scans");
     store.scans = [];
-    navigate("/prabasi-app/");
+    navigate("/");
   }
   return (
     <div className="container flex mx-auto w-full items-center justify-center py-4 overflow-auto mb-4">

@@ -29,11 +29,7 @@ export const QrCodeScanner = () => {
     } else {
       showToast(`Already scanned ${str}`, ToastModes.ERROR);
     }
-    if (window.history.length > 0) {
-      navigate(-1);
-    } else {
-      navigate("/prabasi-app/");
-    }
+    navigate("/");
   }
 
   useEffect(() => {

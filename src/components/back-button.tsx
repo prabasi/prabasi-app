@@ -3,11 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function BackButton({ ...props }) {
   const navigate = useNavigate();
   const back = () => {
-    if (window.history.length > 0) {
-      navigate(-1);
-    } else {
-      navigate("/prabasi-app/");
-    }
+    navigate("/");
   };
   return (
     <button
