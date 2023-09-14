@@ -8,6 +8,15 @@ import Scan from "./pages/scan";
 import Toasts from "./components/toasts";
 
 function App() {
+  React.useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({
+        video: true,
+      })
+      .catch(function () {
+        alert("Please allow camera access to use this app");
+      });
+  }, []);
   return (
     <React.StrictMode>
       <BrowserRouter basename="/prabasi-app">

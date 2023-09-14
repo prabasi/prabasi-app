@@ -6,7 +6,7 @@ export default function BackButton({ ...props }) {
     if (window.history.length > 0) {
       navigate(-1);
     } else {
-      navigate("/");
+      navigate("/prabasi-app/");
     }
   };
   return (

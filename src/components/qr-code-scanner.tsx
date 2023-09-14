@@ -32,7 +32,7 @@ export const QrCodeScanner = () => {
     if (window.history.length > 0) {
       navigate(-1);
     } else {
-      navigate("/");
+      navigate("/prabasi-app/");
     }
   }
 
