@@ -10,7 +10,7 @@ import Toasts from "./components/toasts";
 function App() {
   return (
     <React.StrictMode>
-      <BrowserRouter>
+      <BrowserRouter basename="/prabasi-app">
         <Toasts />
         <Routes>
           <Route path="/" element={<Layout />}>

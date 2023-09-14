@@ -25,6 +25,7 @@ export const QrCodeScanner = () => {
     console.log(store.scans);
     if (store.scans.some((scan) => scan.name === str) === false) {
       store.scans.push({ name: str, time: new Date() });
+      showToast(`${str} added to the list`, ToastModes.SUCCESS);
     } else {
       showToast(`Already scanned ${str}`, ToastModes.ERROR);
     }
