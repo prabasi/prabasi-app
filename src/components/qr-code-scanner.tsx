@@ -14,22 +14,28 @@ const qrConfig = {
   showTorchButtonIfSupported: true,
 };
 
+const regExp = /^PRABASI\-\d{5}$/;
+
 export const QrCodeScanner = () => {
   const { devices, nextDevice, deviceMode, deviceId } = useVideoInputDevices();
   const [html5QrCode, setHtml5QrCode] = React.useState<Html5Qrcode>();
   const [isScanning, setIsScanning] = React.useState(false);
   const { showToast } = useToast();
-  const navigate = useNavigate();
 
   function handleScan(str: string) {
-    console.log(store.scans);
-    if (store.scans.some((scan) => scan.name === str) === false) {
-      store.scans.push({ name: str, time: new Date() });
-      showToast(`${str} added to the list`, ToastModes.SUCCESS);
+    if (regExp.test(str) === false) {
+      showToast(`Invalid QR Code`, ToastModes.ERROR);
     } else {
-      showToast(`Already scanned ${str}`, ToastModes.ERROR);
+      if (store.scans.some((scan) => scan.name === str) === false) {
+        store.scans.push({ name: str, time: new Date().getTime() });
+        showToast(`${str} added to the list`, ToastModes.SUCCESS);
+      } else {
+        showToast(`Already scanned ${str}`, ToastModes.ERROR);
+      }
     }
-    navigate("/");
+    setTimeout(() => {
+      handleResumeScan();
+    }, 1000);
   }
 
   useEffect(() => {
@@ -69,6 +75,10 @@ export const QrCodeScanner = () => {
         setIsScanning(false);
         console.error(err);
       });
+  };
+
+  const handleResumeScan = () => {
+    html5QrCode?.resume();
   };
 
   const handleStopScan = () => {

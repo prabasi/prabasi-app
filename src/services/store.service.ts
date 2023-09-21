@@ -1,45 +1,38 @@
-import { proxy } from "valtio";
+import { proxy, subscribe } from "valtio";
 import { devtools } from "valtio/utils";
 import { Toast } from "../hooks/useToast";
+import localforage from "localforage";
+
+export interface Data {
+  name: string;
+  time: number;
+}
+export interface ToastStore {
+  toasts: Toast[];
+}
 
 export interface Store {
-  toasts: Toast[];
-  scans: { name: string; time: Date }[];
-  manual: { name: string; time: Date }[];
+  scans: Data[];
+  manual: Data[];
 }
 
 const State: Store = {
-  toasts: [],
-  scans: [
-    // { name: "kapil", time: new Date() },
-    // { name: "kapil2", time: new Date() },
-    // { name: "kapil3", time: new Date() },
-    // { name: "kapil4", time: new Date() },
-    // { name: "kapil", time: new Date() },
-    // { name: "kapil2", time: new Date() },
-    // { name: "kapil3", time: new Date() },
-    // { name: "kapil4", time: new Date() },
-    // { name: "kapil", time: new Date() },
-    // { name: "kapil2", time: new Date() },
-    // { name: "kapil3", time: new Date() },
-    // { name: "kapil4", time: new Date() },
-    // { name: "kapil", time: new Date() },
-    // { name: "kapil2", time: new Date() },
-    // { name: "kapil3", time: new Date() },
-    // { name: "kapil4", time: new Date() },
-    // { name: "kapil", time: new Date() },
-    // { name: "kapil2", time: new Date() },
-    // { name: "kapil3", time: new Date() },
-    // { name: "kapil4", time: new Date() },
-    // { name: "kapil", time: new Date() },
-    // { name: "kapil2", time: new Date() },
-    // { name: "kapil3", time: new Date() },
-    // { name: "kapil4", time: new Date() },
-  ],
+  scans: [],
   manual: [],
 };
 
-const store = proxy(State);
+export const toastStore = proxy<ToastStore>({ toasts: [] });
+
+const data = await localforage.getItem<string>("state");
+const saveObj = data ? JSON.parse(data) : "";
+const store = proxy({
+  scans: (saveObj.scans as Data[]) || State.scans,
+  manual: (saveObj.manual as Data[]) || State.manual,
+});
 if (window.location.hostname === "localhost") devtools(store);
+
+subscribe(store, () => {
+  localforage.setItem("state", JSON.stringify(store));
+});
 
 export default store;

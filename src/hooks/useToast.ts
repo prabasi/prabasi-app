@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import store from "../services/store.service";
+import { toastStore } from "../services/store.service";
 import useAudio from "./useAudio";
 
 export enum ToastModes {
@@ -21,7 +21,7 @@ interface UseToast {
 }
 
 export default function useToast(): UseToast {
-  const { toasts } = useSnapshot(store);
+  const { toasts } = useSnapshot(toastStore);
   const [toggleSuccessAudio] = useAudio("/prabasi-app/audio/success.mp3");
   const [failureSuccessAudio] = useAudio("/prabasi-app/audio/negative.mp3");
 
@@ -29,16 +29,16 @@ export default function useToast(): UseToast {
     const toast = { message, mode, duration, id: String(crypto.randomUUID()) };
     if (mode === ToastModes.ERROR) failureSuccessAudio();
     if (mode === ToastModes.SUCCESS) toggleSuccessAudio();
-    store.toasts.push(toast);
-    if (store.toasts.length > 3) {
-      store.toasts.shift();
+    toastStore.toasts.push(toast);
+    if (toastStore.toasts.length > 3) {
+      toastStore.toasts.shift();
     }
     setTimeout(() => hideToast(toast.id), duration);
   }
 
   function hideToast(id: string) {
     const index = toasts.findIndex((toast: Toast) => toast.id === id);
-    store.toasts.splice(index, 1);
+    toastStore.toasts.splice(index, 1);
   }
 
   return {

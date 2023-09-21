@@ -7,7 +7,7 @@ export default function Manual() {
   const onAddClick = () => {
     if (name.trim() === "") return;
     if (store.manual.some((manual) => manual.name === name) === false) {
-      store.manual.push({ name: name, time: new Date() });
+      store.manual.push({ name: name, time: new Date().getTime() });
       showToast(`${name} added to the list`, ToastModes.SUCCESS);
     } else {
       showToast(`Already ${name}`, ToastModes.ERROR);
@@ -39,7 +39,7 @@ export default function Manual() {
             {store.manual.map((manual) => {
               return (
                 <li
-                  key={manual.time.getTime()}
+                  key={manual.time}
                   className="border-gray-400 flex flex-row mb-2"
                 >
                   <div className="select-none cursor-pointer bg-gray-200 rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
@@ -47,7 +47,7 @@ export default function Manual() {
                       <div className="font-medium">{manual.name}</div>
                     </div>
                     <div className="text-gray-600 text-xs">
-                      {manual.time.toLocaleDateString()}
+                      {new Date(manual.time).toLocaleDateString()}
                     </div>
                   </div>
                 </li>

@@ -10,7 +10,7 @@ export default function Home() {
           {store.scans.map((scan) => {
             return (
               <li
-                key={scan.time.getTime()}
+                key={scan.time}
                 className="border-gray-400 flex flex-row mb-2"
               >
                 <div className="select-none cursor-pointer bg-gray-200 rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
@@ -18,7 +18,7 @@ export default function Home() {
                     <div className="font-medium">{scan.name}</div>
                   </div>
                   <div className="text-gray-600 text-xs">
-                    {scan.time.toLocaleDateString()}
+                    {new Date(scan.time).toLocaleDateString()}
                   </div>
                 </div>
               </li>
