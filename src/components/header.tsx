@@ -3,9 +3,9 @@ import { Outlet, Link } from "react-router-dom";
 
 export default function Header({ children }: { children?: React.ReactNode }) {
   return (
-    <div className="flex flex-1 flex-col">
-      <nav className="flex h-16 justify-between border-b-2 bg-white px-4">
-        <ul className="flex items-center lg:hidden">
+    <div className="grid grid-flow-row grid-rows-[62px_1fr]">
+      <nav className="grid grid-flow-col h-16 justify-between border-b-2 bg-white px-4 sticky top-0 z-[1]">
+        <ul className="grid items-center lg:hidden">
           <li className="h-6 w-6">
             <img
               className="mx-auto h-full w-full"
@@ -15,7 +15,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
           </li>
         </ul>
 
-        <ul className="flex items-center">
+        <ul className="grid items-center">
           <li>
             <h1 className="pl-10 text-gray-700 lg:pl-0">
               Prabasi Pass Scanner
@@ -23,7 +23,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
           </li>
         </ul>
 
-        <ul className="flex items-center">
+        <ul className="grid items-center">
           <li className="pr-4">
             <Link to="/scan">
               <svg
@@ -39,7 +39,9 @@ export default function Header({ children }: { children?: React.ReactNode }) {
           </li>
         </ul>
       </nav>
-      <Outlet />
+      <div className="grid">
+        <Outlet />
+      </div>
     </div>
   );
 }

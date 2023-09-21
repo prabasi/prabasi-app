@@ -92,7 +92,7 @@ export const QrCodeScanner = () => {
         <div id="reader"></div>
       </div>
       <header className="text-white flex justify-between items-center absolute top-0 w-full left-0 py-3 px-4 cursor-pointer">
-        <div className="h-fit block overflow-hidden px-4 py-2 rounded-md bg-white/80 dark:bg-black/80">
+        <div className="h-fit block overflow-hidden px-4 py-2 rounded-md flex bg-white/80 dark:bg-black/80">
           <div className="w-8 pb-1">
             <img
               src="/prabasi-app/logo192.png"
@@ -100,6 +100,9 @@ export const QrCodeScanner = () => {
               className="h-6 block"
             />
           </div>
+          <span className="p-1 text-black">
+            Total scan count is {store.scans.length}
+          </span>
         </div>
         <div className="flex h-fit space-x-3 items-top px-4 py-2 rounded-md bg-white/80 dark:bg-black/80">
           {devices.length && (

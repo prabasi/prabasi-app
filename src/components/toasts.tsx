@@ -7,7 +7,11 @@ const Toast: React.FC<{ message: string; mode: ToastModes }> = ({
 }) => {
   return (
     <div
-      className="flex items-center p-4 bg-white rounded-lg shadow-md text-black"
+      className={`flex items-center p-4 bg-white rounded-lg shadow-md text-black ${
+        mode === "success"
+          ? "bg-green-100 text-green-800"
+          : "bg-red-100 text-red-800"
+      }`}
       role="alert"
     >
       {mode === "success" && (

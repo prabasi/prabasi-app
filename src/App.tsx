@@ -6,6 +6,7 @@ import Settings from "./pages/settings";
 import Layout from "./components/layout";
 import Scan from "./pages/scan";
 import Toasts from "./components/toasts";
+import Manual from "./pages/manual";
 
 function App() {
   React.useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/manual" element={<Manual />} />
             <Route path="*" element={<div>Not Found</div>} />
           </Route>
           <Route path="/scan" element={<Scan />} />
