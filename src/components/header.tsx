@@ -1,7 +1,18 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
+import store from "../services/store.service";
+import { subscribeKey } from "valtio/utils";
 
-export default function Header({ children }: { children?: React.ReactNode }) {
+export default function Header() {
+  const [session, setSession] = React.useState(store.session);
+  React.useEffect(() => {
+    const unsub = subscribeKey(store, "session", (c) => {
+      setSession(c);
+    });
+    return () => {
+      unsub();
+    };
+  });
   return (
     <div className="grid grid-flow-row grid-rows-[62px_1fr]">
       <nav className="grid grid-flow-col h-16 justify-between border-b-2 bg-white px-4 sticky top-0 z-[1]">
@@ -18,7 +29,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
         <ul className="grid items-center">
           <li>
             <h1 className="pl-10 text-gray-700 lg:pl-0">
-              Prabasi Pass Scanner
+              Prabasi Pass Scanner{session ? `: (${session})` : ""}
             </h1>
           </li>
         </ul>

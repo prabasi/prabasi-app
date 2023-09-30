@@ -7,6 +7,7 @@ import Layout from "./components/layout";
 import Scan from "./pages/scan";
 import Toasts from "./components/toasts";
 import Manual from "./pages/manual";
+import SessionDialog from "./components/session-dialog";
 
 function App() {
   React.useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/scan" element={<Scan />} />
         </Routes>
       </BrowserRouter>
+      <SessionDialog />
     </React.StrictMode>
   );
 }

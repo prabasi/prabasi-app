@@ -14,11 +14,13 @@ export interface ToastStore {
 export interface Store {
   scans: Data[];
   manual: Data[];
+  session: string;
 }
 
 const State: Store = {
   scans: [],
   manual: [],
+  session: "",
 };
 
 export const toastStore = proxy<ToastStore>({ toasts: [] });
@@ -28,6 +30,7 @@ const saveObj = data ? JSON.parse(data) : "";
 const store = proxy({
   scans: (saveObj.scans as Data[]) || State.scans,
   manual: (saveObj.manual as Data[]) || State.manual,
+  session: saveObj.session || State.session,
 });
 if (window.location.hostname === "localhost") devtools(store);
 
