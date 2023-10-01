@@ -5,23 +5,29 @@ import useToast, { ToastModes } from "../hooks/useToast";
 
 export default function Settings() {
   const { showToast } = useToast();
-  function onExportReset() {
+  function onExportScan() {
+    store.scans = [];
+    showToast("Reset Scans Completed", ToastModes.SUCCESS);
+  }
+  function onScanReset() {
     exportCSVFile(
       store.scans as any,
       { name: "Name", time: "Time" },
       `${store.session}-scans`
     );
-    store.scans = [];
-    showToast("Exported & Reset Scans", ToastModes.SUCCESS);
+    showToast("Exported Scans Completed", ToastModes.SUCCESS);
   }
-  function onExportManualReset() {
+  function onExportManual() {
     exportCSVFile(
       store.manual as any,
       { name: "Name", time: "Time" },
       `${store.session}-manuals`
     );
+    showToast("Exported Manual List", ToastModes.SUCCESS);
+  }
+  function onManualReset() {
     store.manual = [];
-    showToast("Exported & Reset Manual", ToastModes.SUCCESS);
+    showToast("Reset Manual List", ToastModes.SUCCESS);
   }
   function onClearSession() {
     store.session = "";
@@ -29,12 +35,18 @@ export default function Settings() {
   }
   return (
     <div className="container grid gap-4 p-4 justify-center">
-      <button onClick={onExportReset} className="btn btn-primary">
-        Export Scan & Reset Scan List
+      <button onClick={onExportScan} className="btn btn-primary">
+        Export Scan List
+      </button>
+      <button onClick={onScanReset} className="btn btn-error">
+        Reset Scan List
       </button>
 
-      <button onClick={onExportManualReset} className="btn btn-primary">
-        Export Manual & Reset Manual List
+      <button onClick={onExportManual} className="btn btn-primary">
+        Export Manual List
+      </button>
+      <button onClick={onManualReset} className="btn btn-error">
+        Reset Manual List
       </button>
 
       <button onClick={onClearSession} className="btn btn-warning">
