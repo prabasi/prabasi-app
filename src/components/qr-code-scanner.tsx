@@ -18,18 +18,21 @@ const regExp = /^PRABASI\-\d{5}$/;
 
 export const QrCodeScanner = () => {
   const { devices, nextDevice, deviceMode, deviceId } = useVideoInputDevices();
+  const [lastScan, setLastScan] = React.useState<string>("");
   const [html5QrCode, setHtml5QrCode] = React.useState<Html5Qrcode>();
   const [isScanning, setIsScanning] = React.useState(false);
   const { showToast } = useToast();
 
   function handleScan(str: string) {
     if (regExp.test(str) === false) {
+      setLastScan("Invalid QR Code");
       showToast(`Invalid QR Code`, ToastModes.ERROR);
     } else {
       if (store.scans.some((scan) => scan.name === str) === false) {
         store.scans.push({ name: str, time: new Date().getTime() });
-        showToast(`${str} added to the list`, ToastModes.SUCCESS);
+        setLastScan(`Scanned ${str}`);
       } else {
+        setLastScan(`Already scanned ${str}`);
         showToast(`Already scanned ${str}`, ToastModes.ERROR);
       }
     }
@@ -128,6 +131,11 @@ export const QrCodeScanner = () => {
           <BackButton />
         </div>
       </header>
+      <footer className="text-white flex items-center justify-center absolute bottom-1 w-full left-0 py-3 px-4 cursor-pointer">
+        <div className="h-fit overflow-hidden px-4 py-2 rounded-md flex bg-white/80">
+          Last Scan: {lastScan}
+        </div>
+      </footer>
     </div>
   );
 };

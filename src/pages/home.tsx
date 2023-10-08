@@ -18,7 +18,7 @@ export default function Home() {
                     <div className="font-medium">{scan.name}</div>
                   </div>
                   <div className="text-gray-600 text-xs">
-                    {new Date(scan.time).toLocaleDateString()}
+                    {new Date(scan.time).toLocaleTimeString()}
                   </div>
                 </div>
               </li>

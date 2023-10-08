@@ -8,7 +8,6 @@ export default function Manual() {
     if (name.trim() === "") return;
     if (store.manual.some((manual) => manual.name === name) === false) {
       store.manual.push({ name: name, time: new Date().getTime() });
-      showToast(`${name} added to the list`, ToastModes.SUCCESS);
     } else {
       showToast(`Already ${name}`, ToastModes.ERROR);
     }
@@ -47,7 +46,7 @@ export default function Manual() {
                       <div className="font-medium">{manual.name}</div>
                     </div>
                     <div className="text-gray-600 text-xs">
-                      {new Date(manual.time).toLocaleDateString()}
+                      {new Date(manual.time).toLocaleTimeString()}
                     </div>
                   </div>
                 </li>
